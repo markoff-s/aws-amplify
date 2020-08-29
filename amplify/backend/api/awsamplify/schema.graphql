@@ -1,0 +1,31 @@
+type Author {
+  id: ID!
+	name: String
+	# books: [Book]
+}
+
+input AddAuthorRequest {
+	name: String!
+}
+
+type Book {
+  id: ID!
+	title: String
+	# author: Author
+}
+
+type Magazine {
+  id: ID!
+  title: String!
+}
+
+type Mutation {
+	# addBook(title: String, author: String): Book
+	addAuthor(author: AddAuthorRequest): Author @function(name: "addAuthor-${env}")
+}
+
+type Query {
+	books: [Book] @function(name: "getBooks-${env}")
+	authors: [Author] @function(name: "getAuthors-${env}")
+  	magazines: [Magazine] @function(name: "getMagazines-${env}")
+}
